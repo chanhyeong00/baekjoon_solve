@@ -4,13 +4,7 @@ lst = []
 for _ in range(n):
     name, state = map(str, input().split())
     _dict[name] = state
-for name, state in _dict.items():
+for name, state in sorted(_dict.items(), reverse=True):
     if state == "enter":
-        lst.append(name)
-lst.sort(reverse=True)
-for l in lst:
-    print(l)
-
-    
-
-
+        print(name)
+     
