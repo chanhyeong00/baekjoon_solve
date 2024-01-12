@@ -14,3 +14,5 @@ for _ in range(k):
         answer -= lst[-1]
         lst.pop(-1)
 print(answer)
+
+# 입력을 sys.readline() 으로 받으면 시간이 확 줄어든다
