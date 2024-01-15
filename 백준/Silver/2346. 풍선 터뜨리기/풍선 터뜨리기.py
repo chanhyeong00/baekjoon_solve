@@ -9,8 +9,8 @@ answer = []
 while balloon:
     idx, num = balloon.popleft()
     answer.append(str(idx + 1))
-
-    if num > 0: # 왼쪽으로 회전(pop left 된 1칸 제와)
+    # 뺴야하는 애를 젤 왼쪽으로 두기 위해서 덱을 회전시킨다(핵심)
+    if num > 0: # 왼쪽으로 회전(pop left 된 1칸 제와) 
         balloon.rotate(-(num - 1))
     elif num < 0: # 오른쪽 회전(음수일 떄는 영향이 없음)
         balloon.rotate(-num)
