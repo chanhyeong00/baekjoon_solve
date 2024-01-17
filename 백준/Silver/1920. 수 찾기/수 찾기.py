@@ -1,25 +1,25 @@
 from sys import stdin
 n = int(stdin.readline())
-a_lst = sorted(list(map(int, stdin.readline().split())))
+a_lst = list(map(int, stdin.readline().split()))
 a_lst.sort()
-
 m = int(stdin.readline())
 b_lst = list(map(int, stdin.readline().split()))
 
-for b in b_lst:
+def bin_s(x, lst):
      start = 0
-     end = len(a_lst) - 1
-     flag = False
+     end = len(lst) - 1
+     answer = 0
      while start <= end:
           mid = (start + end) // 2
 
-          if b == a_lst[mid]:
-               flag = True
-               print(1)
+          if x == lst[mid]:
+               answer = 1
                break
-          elif a_lst[mid] > b:
+          elif lst[mid] > x:
                end = mid -1 
           else:
-               start = mid + 1
-     
-     if flag == False: print(0)
+               start = mid + 1   
+     return answer
+
+for b in b_lst:
+     print(bin_s(b, a_lst))
