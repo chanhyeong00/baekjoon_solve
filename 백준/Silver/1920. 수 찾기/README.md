@@ -1,4 +1,4 @@
-# [Silver IV] 수 찾기 - 1920 
+# [Silver IV] 수 찾기(이진탐색) - 1920 
 
 [문제 링크](https://www.acmicpc.net/problem/1920) 
 
