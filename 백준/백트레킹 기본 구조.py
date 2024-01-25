@@ -14,5 +14,7 @@ def make_arr(k, n, m):
             visited[i] = False # 탐색끝
             arr.pop()
 
-
 make_arr(0, n, m)
+
+
+# dfs 랑 같은 구조이지만 가지치기를 통해 불필요한 가지 제거
