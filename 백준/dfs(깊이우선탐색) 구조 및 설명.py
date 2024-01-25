@@ -8,6 +8,9 @@ def dfs_recur(graph, node, visited):
 
         for neighbor in graph[node]:
             dfs_recur(graph, neighbor, visited)
+
+# A B D E H C F G  
+
 # 스택
 def dfs_stack(graph, start):
     visited = set()  # 방문한 노드를 기록하기 위한 집합
@@ -21,8 +24,8 @@ def dfs_stack(graph, start):
 
             # 현재 노드의 인접한 노드들을 스택에 추가
             stack.extend(neighbor for neighbor in graph[node] if neighbor not in visited)
-
-# 예시 그래프 A B D E H C F G %  
+# A C G F B E H D
+# 예시 그래프
 graph = {
     'A': ['B', 'C'],
     'B': ['A', 'D', 'E'],
@@ -34,6 +37,11 @@ graph = {
     'H': ['E']
 }
 visited = set()
+
+
+# 둘이 결과가 다른 이유는 스택은 오른쪽 노드를 먼저 가져오고 
+# 재귀는 왼쪽 노드를 먼저 가져옴
+# 둘 다 맞는 거다 만약 재귀와 같이 표현하려면 큐를 사용해 popleft를 사용!
 dfs_stack(graph, 'A')
 print()
 visited.clear()
