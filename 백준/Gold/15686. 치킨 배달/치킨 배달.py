@@ -12,7 +12,7 @@ def find_distance(x,y, num):
         return 
       
     for i in range(x, n): # 반복문으로 치킨집 찾기
-        for j in range(y if i==x else 0, n):
+        for j in range(y if i==x else 0, n): # (x, y==x)면 y부터 보고 아니면 0부터 봄
             if city[i][j] == 2 and (i,j) not in chicken: #치킨집을 찾아서
                 chicken.append((i,j))
                 find_distance(i, j, num + 1)
