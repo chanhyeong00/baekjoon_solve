@@ -2,11 +2,10 @@ from sys import stdin
 
 n = int(stdin.readline())
 lst = list(map(int, stdin.readline().split()))
+dp = [0] * n
+dp[0] = lst[0]
 
-num = 0
-max_ = -float('inf')
+for i in range(1, n):
+    dp[i] = max(lst[i], dp[i-1] + lst[i])
 
-for i in range(n):
-    num = max(num+lst[i], lst[i]) # 누적합과 본인 중에 큰 걸로
-    max_ = max(num, max_) # 최대값과 비교
-print(max_)
+print(max(dp))
