@@ -1,5 +1,5 @@
 from sys import stdin
-from collections import deque
+
 n = int(stdin.readline())
 cnt = 0
 
