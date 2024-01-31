@@ -3,9 +3,6 @@ from collections import deque
 n = int(stdin.readline())
 cnt = 0
 
-# 결과 값은 맨앞높 고정시키고 계산(0과 9의 개수가 중요)
-# 처음엔 무조건 2
-# 그 이후론 0이나 9 가 나오면 이전자리 cnt + (cnt-0과9의수)로 계속 쌓아가는 방법
 for i in range(1, 10): # 첫자리 정해줌
     dp = [0] * 10 # 0-9까지 개수
     dp[i] += 1
