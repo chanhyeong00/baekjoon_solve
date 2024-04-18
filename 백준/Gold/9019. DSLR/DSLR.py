@@ -6,58 +6,43 @@ input = stdin.readline
 T = int(input())
 
 for _ in range(T):
-    A, B = map(str, input().split())
+    A, B = map(int, input().split())
     visited = [0] * 10000
-    queue = deque([('0'*(4-len(A))+A, '')])
-    anwer = ''
-    int_b = int(B)
+    queue = deque([(A, '')])
+    anwer = 0
+
     while queue:
         a, order = queue.popleft()
-        int_a = int(a)
 
-        if int_a == int_b:
+        if a == B:
             answer = order
             break
         # D
-        na = 2 * int_a
+        na = 2 * a
         if na > 9999: na %= 10000
         if not visited[na]:
             visited[na] = 1
-            na = str(na)
-            queue.append(('0'*(4-len(na))+na,order+'D'))
-    
-            
+            queue.append((na, order+'D'))
+        
         # S
-        if int_a == 0: na = 9999
-        else: na = int_a - 1
+        if a == 0: na = 9999
+        else: na = a - 1
 
         if not visited[na]:
             visited[na] = 1
-            na = str(na)
-            queue.append(('0'*(4-len(na))+na, order+'S'))           
+            queue.append((na, order+'S'))      
 
         # L
-        na = []
-        for i in range(1, 4):
-            na.append(a[i])
-        na.append(a[0])
-        na = ''.join(na)
-        int_na = int(na)
+        na = (a % 1000) * 10 + (a//1000)
 
-        if not visited[int_na]:
+        if not visited[na]:
+            visited[na] = 1
             queue.append((na, order+'L'))
-            visited[int_na] = 1
-
+            
         # R
-        na = []
-        na.append(a[-1])
-        for i in range(3):
-            na.append(a[i])
-
-        na = ''.join(na)
-        int_na = int(na)
-        if not visited[int_na]:
+        na = (a%10) * 1000 + (a // 10)
+        if not visited[na]:
             queue.append((na, order+'R'))
-            visited[int_na] = 1
+            visited[na] = 1
 
     print(answer)
