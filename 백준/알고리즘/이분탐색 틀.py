@@ -14,3 +14,4 @@ def binary_search(target, data):
         else:                    # target이 크면 오른쪽을 더 탐색
             start = mid + 1
     return
+# O(logN)
