@@ -26,6 +26,6 @@ while True:
             else:
                 answer = 'no'
                 break
-    if len(lst) > 0:
+    if lst:
         answer = 'no'
     print(answer)
