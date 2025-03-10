@@ -1,14 +1,14 @@
-from sys import stdin
-read = stdin.readline
+import sys
+input = sys.stdin.readline
 
-n, m = map(int, read().split())
-lst = list(map(int, read().split()))
+N, M = map(int, input().split())
+lst = list(map(int, input().split()))
+dp = [0] * (N + 1) # 0은 0으로
+dp[1] = lst[0]
 
-table = [0] * (n+1)
-table[0], table[1] = 0, lst[0]
-for i in range(2, n+1):
-    table[i] = lst[i-1] + table[i-1]
-    
-for _ in range(m):
-    i, j = map(int, read().split())
-    print(table[j] - table[i-1])
+for i in range(2, N+1):
+    dp[i] = dp[i-1] + lst[i - 1]
+
+for _ in range(M):
+    i, j = map(int, input().split())
+    print(dp[j] - dp[i-1])
