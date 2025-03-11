@@ -1,24 +1,22 @@
-from sys import stdin
 import sys
-sys.setrecursionlimit(100000)
-input = stdin.readline
+input = sys.stdin.readline
 
 n = int(input())
-answer = float('inf')
-dp = [0] * (n+1) 
+max_sqrt = int((n**(1/2)))
 
-def find_min(n):
-    if n <= 0:
-        return 0
-    if dp[n]:
-        return dp[n] 
-    else:    
-        max_ = int(n**(1/2))
-        m = n // max_**2
-        dp[n] = m + find_min(n-(max_**2)*m)
-        for i in range(max_-1, 0, -1):
-            k = i ** 2 
-            m = n // k
-            dp[n] = min(dp[n], m + find_min(n-k*m))
-    return dp[n]
-print(find_min(n))
+dp = [i for i in range(n+1)] # 모두 1^2으로 구성되는 최악의 상황으로 초기화
+
+for i in range(2, n+1):
+    for j in range(1, int(i**(1/2))+1):
+        dp[i] = min(1 + dp[i-j**2], dp[i])
+
+print(dp[n])
+
+# dp[1] = 1
+# dp[2] = dp[1] + dp[1]
+# dp[3] = dp[1] + dp[2]
+# dp[4] = 1
+# dp[5] = dp[4] + dp[1]
+# dp[6] = dp[4] + dp[2]
+# dp[7] = dp[4] + dp[3]
+# dp[n] = dp[i*i] + dp[n-i*i] (dp[i^2]은 항상 1)
