@@ -1,41 +1,33 @@
-from sys import stdin
 import sys
-sys.setrecursionlimit(10**6) 
-input = stdin.readline
+input = sys.stdin.readline
 
-t = int(input())
+T = int(input())
+for _ in range(T):
+    M, N, K = map(int, input().split())
+    farm = [[0]*M for _ in range(N)]
 
-def check_move(x, y):
-    if x < 0 or y < 0 or x >= m and y >=n:
-        return
-
-    if not visited[x][y] and ground[x][y] == 1:
-        visited[x][y] = 1
-        ground[x][y] = 0
-
-        if x + 1 < m:
-            check_move(x+1, y)
-        if x - 1 >= 0:
-            check_move(x-1, y)
-        if y + 1 < n:
-            check_move(x, y+1)
-        if y - 1 >= 0:
-            check_move(x, y-1)
-
-
-for _ in range(t):
-    m, n, k = map(int, input().split())
-    ground = [[0] * n for _ in range(m)]
-    visited = [[0] * n for _ in range(m)]
-    for _ in range(k):
+    for _ in range(K):
         x, y = map(int, input().split())
-        ground[x][y] = 1
-    
+        farm[y][x] = 1
+
+    visited = [[0] * M for _ in range(N)]
     answer = 0
-    # 이미 확인한 곳은 0으로 만들고, 오른쪽과 아래가 모두 0이면 찾음
-    for i in range(m):
-        for j in range(n):
-            if ground[i][j] == 1:
-                check_move(i, j)
+
+    for i in range(N):
+        for j in range(M):
+            if farm[i][j] == 1 and not visited[i][j]: # 배추가 심어져있고, 방문 안했으면
+                stack = [(i, j)]
+                while stack: # 너비 탐색으로 탐색 시작
+                    y, x = stack.pop()
+                    visited[y][x] = 1
+                    if y + 1 < N and farm[y+1][x] == 1 and not visited[y+1][x]:
+                        stack.append((y+1, x))
+                    if x + 1 < M and farm[y][x+1] == 1 and not visited[y][x+1]:
+                        stack.append((y, x+1))
+                    if y - 1 >= 0 and farm[y-1][x] == 1 and not visited[y-1][x]:
+                        stack.append((y-1, x))
+                    if x - 1 >= 0 and farm[y][x-1] == 1 and not visited[y][x-1]:
+                        stack.append((y, x-1))
                 answer += 1
     print(answer)
+                
