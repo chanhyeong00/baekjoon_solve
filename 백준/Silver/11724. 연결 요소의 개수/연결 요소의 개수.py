@@ -1,36 +1,26 @@
-from sys import stdin
 import sys
-input = stdin.readline
+input = sys.stdin.readline
 
-graph = dict()
-node = set()
-n, m = map(int, input().split())
-visited = [0] * (n+1)
-node = [i for i in range(1, n+1)]
+N, M = map(int, input().split())
 
-for _ in range(m):
-    u, v = map(int, input().split())
-    if u not in graph:
-        graph[u] = {v}
-    else:
-        graph[u].add(v)
-    if v not in graph:
-        graph[v] = {u}
-    else:
-        graph[v].add(u)
+graph = {i:[] for i in range(1, N+1)}
 
+for _ in range(M):
+    x, y = map(int, input().split())
+    graph[x].append(y)
+    graph[y].append(x)
+
+visited = [0] * (N + 1)
 answer = 0
-
-while node:
-    start = node.pop()
-    if not visited[start]:
-        con_lst = [start]
-        while con_lst:
-            con = con_lst.pop()
-            if not visited[con]:
-                visited[con] = 1
-                if con in graph:
-                    for g in graph[con]:
-                        con_lst.append(g)
+for i in range(1, N+1):
+    if not visited[i]:
+        stack = [i]
+        while stack:
+            x = stack.pop()
+            if not visited[x]:
+                visited[x] = 1
+                for gx in graph[x]:
+                    if not visited[gx]:
+                        stack.append(gx)
         answer += 1
 print(answer)
