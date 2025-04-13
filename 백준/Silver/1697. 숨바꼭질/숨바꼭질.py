@@ -1,29 +1,22 @@
-from sys import stdin
+import sys
 from collections import deque
+input = sys.stdin.readline
 
-input = stdin.readline
-n, k = map(int, input().split())
-# 이 문제는 bfs로 하는 게 효율적
-# Dfs로 풀면 각 노드마다 3개씩 뻗어가고, 수가 커지면 너무 많은 노드가 생김
-visited = [0] * 100001
+N, K = map(int, input().split())
 
-queue = deque([(n, 0)])
+answer = float('inf')
+visited = [0] * 100_001
+queue = deque([(N, 0)])
 
-answer = 0
 while queue:
-
-    node, time = queue.popleft()
-
-    if node == k: 
+    loc, time = queue.popleft()
+    if loc == K:
         answer = time
         break
-    if node < 0 or node > 100000: continue
-
-    if not visited[node]:
-        queue.append((node*2, time+1))
-        queue.append((node+1, time+1))
-        queue.append((node-1, time+1))
-
-    visited[node] = 1
-
+    if 0<=loc<=100_000 and not visited[loc]:
+        visited[loc] = 1
+        queue.append((loc*2, time+1))
+        queue.append((loc+1, time+1))
+        queue.append((loc-1, time+1))
+    
 print(answer)
