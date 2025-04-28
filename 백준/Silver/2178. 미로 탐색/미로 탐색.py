@@ -1,28 +1,23 @@
-from sys import stdin
+import sys
 from collections import deque
-input = stdin.readline
+input = sys.stdin.readline
 
+N, M = map(int, input().split())
+miro = []
+for _ in range(N):
+    miro.append(input())
 
-n, m = map(int, input().split())
-maze = []
-for _ in range(n):
-    maze.append(list(input()))
-
-move = deque([(0,0,1)])
-visited = [[0] * m for _ in range(n)]
-d = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+queue = deque([(0,0,1)])
+visited = [[0]*M for _ in range(N)]
+dxy = [(0,1), (0, -1), (1, 0), (-1, 0)]
 answer = 0
-while move:
-    y, x, num = move.popleft()
-    if y == n-1 and x == m-1:
-        answer = num
-        break
-
-    if not visited[y][x]:
-        visited[y][x] = 1
-        for i in range(4):
-            ny, nx = y+d[i][0], x+d[i][1]
-            if 0<=ny<n and 0<=nx<m and maze[ny][nx] == '1':
-                move.append((ny, nx, num+1))
-
+while queue:
+    x, y, dis = queue.popleft()
+    if x == N-1 and y == M-1: 
+        answer = dis
+        break # 큐를 이용한 너비 탐색이므로 가장 빨리 찾은 게 정답
+    for (dx, dy) in dxy:
+        if 0<=x+dx<N and 0<=y+dy<M and miro[x+dx][y+dy]=='1' and not visited[x+dx][y+dy]:
+            visited[x+dx][y+dy] = 1
+            queue.append((x+dx, y+dy, dis+1))
 print(answer)
